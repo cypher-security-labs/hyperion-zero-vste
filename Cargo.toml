@@ -1,0 +1,24 @@
+[package]
+name = "cypher-hyperion-vste"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.70"          # OnceLock, inline format args, let-else
+description = "HYPERION-ZERO: Vectorized Semantic Topology Enclave and cryptographic kill-switch"
+publish = false
+
+[dependencies]
+sha2 = "0.10"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "hot_path"
+harness = false
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+# Build with RUSTFLAGS="-C target-cpu=native" (or at least +avx2,+fma) so the
+# 8-lane dot product in the hot path lowers to wide SIMD.
