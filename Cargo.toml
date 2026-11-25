@@ -1,7 +1,8 @@
-[package]
+﻿[package]
 name = "cypher-hyperion-vste"
 version = "0.2.0"
 edition = "2021"
+license = "MIT OR Apache-2.0"
 rust-version = "1.70"          # OnceLock, inline format args, let-else
 description = "HYPERION-ZERO: Vectorized Semantic Topology Enclave and cryptographic kill-switch"
 publish = false
