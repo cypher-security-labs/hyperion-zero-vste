@@ -1,33 +1,33 @@
 ﻿name: Hyperion-Zero CI
 
 on:
-push:
-branches: [ main, master ]
-pull_request:
-branches: [ main, master ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
-CARGO_TERM_COLOR: always
+  CARGO_TERM_COLOR: always
 
 jobs:
-verify:
-name: Build, Test & Verify Zero-Warnings
-runs-on: ubuntu-latest
-steps:
-- name: Checkout repository
-uses: actions/checkout@v4
-- name: Install Rust stable toolchain
-    uses: dtolnay/rust-toolchain@stable
+  build-and-test:
+    name: Build, Test & Verify Zero-Warnings
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Cache Cargo dependencies
-    uses: Swatinem/rust-cache@v2
+      - name: Install Rust stable toolchain
+        uses: dtolnay/rust-toolchain@stable
 
-  - name: Check compilation (no warnings allowed)
-    run: RUSTFLAGS="-D warnings" cargo check --all-targets
+      - name: Cache Cargo dependencies
+        uses: Swatinem/rust-cache@v2
 
-  - name: Run Enclave Integration Suite
-    run: cargo test --test enclave_integration
+      - name: Check compilation (no warnings allowed)
+        run: RUSTFLAGS="-D warnings" cargo check --all-targets
 
-  - name: Run full test suite
-    run: cargo test
+      - name: Run Enclave Integration Suite
+        run: cargo test --test enclave_integration
 
+      - name: Run full test suite
+        run: cargo test
